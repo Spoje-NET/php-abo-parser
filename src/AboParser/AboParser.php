@@ -44,7 +44,8 @@ class AboParser
     public function setInputEncoding(string $encoding): void
     {
         // Always use Windows-1250 for Czech ABO files
-        $this->inputEncoding = 'Windows-1250';
+        // Set encoding exactly as provided (for tests and edge cases)
+        $this->inputEncoding = $encoding;
     }
 
     /**
@@ -172,18 +173,15 @@ class AboParser
      */
     protected function convertInputEncoding(string $input): string
     {
-        if ($this->convertEncoding && $this->inputEncoding !== 'UTF-8') {
+        if ($this->convertEncoding && strcasecmp($this->inputEncoding, 'UTF-8') !== 0) {
             $converted = @iconv($this->inputEncoding, 'UTF-8//IGNORE', $input);
-
             if ($converted === false || $converted === null) {
                 throw new \RuntimeException(
-                    _(sprintf('Failed to convert input encoding from %s to UTF-8.', $this->inputEncoding)),
+                    _(sprintf('Failed to convert input encoding from %s to UTF-8.', $this->inputEncoding))
                 );
             }
-
             return $converted;
         }
-
         return $input;
     }
 

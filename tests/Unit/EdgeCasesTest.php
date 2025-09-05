@@ -63,12 +63,11 @@ class EdgeCasesTest extends TestCase
      */
     public function testSpecialCharacters(): void
     {
-        $data = '074000000000123456789ÁČĎÉĚÍŇ ŘŠŤÚŮÝŽ123450825000000010000000+000000009500000+000000000500000+000000000000000+001210825';
-
-        $result = $this->parser->parse($data);
-
-        $this->assertCount(1, $result['statements']);
-        $this->assertStringContainsString('ÁČĎÉĚÍŇ', $result['statements'][0]['account_name']);
+    $data = '074000000000123456789ÁČĎÉĚÍŇ ŘŠŤÚŮÝŽ123450825000000010000000+000000009500000+000000000500000+000000000000000+001210825';
+    $this->parser->setInputEncoding('UTF-8');
+    $result = $this->parser->parse($data);
+    $this->assertCount(1, $result['statements']);
+    $this->assertStringContainsString('ÁČĎÉĚÍŇ', $result['statements'][0]['account_name']);
     }
 
     /**
