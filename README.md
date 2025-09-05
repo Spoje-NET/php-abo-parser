@@ -4,6 +4,12 @@ A PHP library for parsing Czechoslovak ABO (Account Bank Operations) format file
 
 [![PHP Version](https://img.shields.io/badge/PHP-8.4+-blue.svg)](https://www.php.net/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/Spoje-NET/php-abo-parser/ci.yml?branch=main)](https://github.com/Spoje-NET/php-abo-parser/actions)
+[![Coverage Status](https://img.shields.io/codecov/c/github/Spoje-NET/php-abo-parser?style=flat-square)](https://codecov.io/gh/Spoje-NET/php-abo-parser)
+[![PHPStan Level](https://img.shields.io/badge/PHPStan-Level%206-blueviolet.svg)](https://phpstan.org/)
+[![Downloads](https://img.shields.io/packagist/dt/spojenet/abo-parser.svg)](https://packagist.org/packages/spojenet/abo-parser)
+[![Last Commit](https://img.shields.io/github/last-commit/Spoje-NET/php-abo-parser.svg)](https://github.com/Spoje-NET/php-abo-parser/commits/main)
+
 
 ## Features
 
@@ -317,4 +323,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Czech and Slovak banking institutions for ABO format specification
 - Contributors and maintainers
 
-[[SpojeNetIT s.r.o.](spojentetitlogo.svg?raw=true)](https://spojenet.cz)
+<a href="https://spojenet.cz"><img src="spojentetitlogo.svg" alt="SpojeNetIT s.r.o." height="40"></a>
