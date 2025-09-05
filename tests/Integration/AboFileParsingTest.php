@@ -2,13 +2,24 @@
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the PohodaRaiffeisenbank package
+ *
+ * https://github.com/Spoje-NET/php-abo-parser
+ *
+ * (c) Spoje.Net IT s.r.o. <https://spojenet.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Tests\Integration;
 
 use PHPUnit\Framework\TestCase;
 use SpojeNet\AboParser\AboParser;
 
 /**
- * Integration tests for ABO file parsing
+ * Integration tests for ABO file parsing.
  */
 class AboFileParsingTest extends TestCase
 {
@@ -18,61 +29,61 @@ class AboFileParsingTest extends TestCase
     protected function setUp(): void
     {
         $this->parser = new AboParser();
-        $this->fixturesPath = __DIR__ . '/../Fixtures/';
+        $this->fixturesPath = __DIR__.'/../Fixtures/';
     }
 
     /**
-     * Test parsing basic format file
+     * Test parsing basic format file.
      */
     public function testParseBasicFormatFile(): void
     {
-        $filePath = $this->fixturesPath . 'basic_format.abo';
+        $filePath = $this->fixturesPath.'basic_format.abo';
         $result = $this->parser->parseFile($filePath);
 
         $this->assertEquals(AboParser::FORMAT_BASIC, $result['format_version']);
         $this->assertCount(1, $result['statements']);
         $this->assertCount(2, $result['transactions']);
-        
+
         // Verify statement data
         $statement = $result['statements'][0];
         $this->assertEquals('074', $statement['record_type']);
         $this->assertEquals('Test Account Name', $statement['account_name']);
         $this->assertEquals(99474.70, $statement['old_balance']);
         $this->assertEquals(93201.15, $statement['new_balance']);
-        
+
         // Verify transaction data
         $transaction1 = $result['transactions'][0];
         $this->assertEquals('075', $transaction1['record_type']);
         $this->assertEquals(AboParser::FORMAT_BASIC, $transaction1['format']);
         $this->assertEquals(1100.01, $transaction1['amount']);
-        
+
         $transaction2 = $result['transactions'][1];
         $this->assertEquals(1330.01, $transaction2['amount']);
     }
 
     /**
-     * Test parsing extended format file
+     * Test parsing extended format file.
      */
     public function testParseExtendedFormatFile(): void
     {
-        $filePath = $this->fixturesPath . 'extended_format.abo';
+        $filePath = $this->fixturesPath.'extended_format.abo';
         $result = $this->parser->parseFile($filePath);
 
         $this->assertEquals(AboParser::FORMAT_EXTENDED, $result['format_version']);
         $this->assertCount(1, $result['statements']);
         $this->assertCount(1, $result['transactions']);
-        
+
         // Verify statement data
         $statement = $result['statements'][0];
         $this->assertEquals('074', $statement['record_type']);
         $this->assertEquals('Extended Test Accoun', $statement['account_name']);
-        
+
         // Verify extended transaction data
         $transaction = $result['transactions'][0];
         $this->assertEquals('075', $transaction['record_type']);
         $this->assertEquals(AboParser::FORMAT_EXTENDED, $transaction['format']);
         $this->assertEquals(100.0, $transaction['amount']);
-        
+
         // Verify extended fields are present
         $this->assertArrayHasKey('message_for_recipient', $transaction);
         $this->assertArrayHasKey('message_for_recipient_2', $transaction);
@@ -81,11 +92,11 @@ class AboFileParsingTest extends TestCase
     }
 
     /**
-     * Test parsing empty file
+     * Test parsing empty file.
      */
     public function testParseEmptyFile(): void
     {
-        $filePath = $this->fixturesPath . 'empty.abo';
+        $filePath = $this->fixturesPath.'empty.abo';
         $result = $this->parser->parseFile($filePath);
 
         $this->assertEquals(AboParser::FORMAT_BASIC, $result['format_version']); // Default format
@@ -95,28 +106,28 @@ class AboFileParsingTest extends TestCase
     }
 
     /**
-     * Test parsing malformed file
+     * Test parsing malformed file.
      */
     public function testParseMalformedFile(): void
     {
-        $filePath = $this->fixturesPath . 'malformed.abo';
+        $filePath = $this->fixturesPath.'malformed.abo';
         $result = $this->parser->parseFile($filePath);
 
         // Should not crash, but should store raw records
         $this->assertArrayHasKey('raw_records', $result);
         $this->assertNotEmpty($result['raw_records']);
-        
+
         // Should have captured all lines as raw records
         $this->assertCount(4, $result['raw_records']);
     }
 
     /**
-     * Test parsing real-world sample file
+     * Test parsing real-world sample file.
      */
     public function testParseRealWorldSample(): void
     {
-        $samplePath = __DIR__ . '/../../tests/27_CZ8408000000000002122722_06029396af87517e_CZK_2025-08-21.abo-standard';
-        
+        $samplePath = __DIR__.'/../../tests/27_CZ8408000000000002122722_06029396af87517e_CZK_2025-08-21.abo-standard';
+
         if (!file_exists($samplePath)) {
             $this->markTestSkipped('Real-world sample file not available');
         }
@@ -126,14 +137,14 @@ class AboFileParsingTest extends TestCase
         $this->assertEquals(AboParser::FORMAT_BASIC, $result['format_version']);
         $this->assertNotEmpty($result['statements']);
         $this->assertNotEmpty($result['transactions']);
-        
+
         // Verify data integrity
         foreach ($result['statements'] as $statement) {
             $this->assertArrayHasKey('record_type', $statement);
             $this->assertArrayHasKey('account_number', $statement);
             $this->assertArrayHasKey('raw_line', $statement);
         }
-        
+
         foreach ($result['transactions'] as $transaction) {
             $this->assertArrayHasKey('record_type', $transaction);
             $this->assertArrayHasKey('format', $transaction);
@@ -143,43 +154,43 @@ class AboFileParsingTest extends TestCase
     }
 
     /**
-     * Test character encoding handling
+     * Test character encoding handling.
      */
     public function testCharacterEncodingHandling(): void
     {
         // Test with Czech characters (if available in fixtures)
-        $filePath = $this->fixturesPath . 'basic_format.abo';
+        $filePath = $this->fixturesPath.'basic_format.abo';
         $result = $this->parser->parseFile($filePath);
-        
+
         // Should not crash with encoding issues
         $this->assertArrayHasKey('format_version', $result);
     }
 
     /**
-     * Test file with mixed record types
+     * Test file with mixed record types.
      */
     public function testMixedRecordTypes(): void
     {
-        $filePath = $this->fixturesPath . 'basic_format.abo';
+        $filePath = $this->fixturesPath.'basic_format.abo';
         $result = $this->parser->parseFile($filePath);
-        
+
         // Should parse both 074 and 075 records
         $this->assertNotEmpty($result['statements']); // 074 records
         $this->assertNotEmpty($result['transactions']); // 075 records
         $this->assertEquals(
-            count($result['statements']) + count($result['transactions']),
-            count($result['raw_records'])
+            \count($result['statements']) + \count($result['transactions']),
+            \count($result['raw_records']),
         );
     }
 
     /**
-     * Test format consistency across multiple transactions
+     * Test format consistency across multiple transactions.
      */
     public function testFormatConsistency(): void
     {
-        $filePath = $this->fixturesPath . 'basic_format.abo';
+        $filePath = $this->fixturesPath.'basic_format.abo';
         $result = $this->parser->parseFile($filePath);
-        
+
         // All transactions should have the same format as detected
         foreach ($result['transactions'] as $transaction) {
             $this->assertEquals($result['format_version'], $transaction['format']);

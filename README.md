@@ -316,3 +316,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Czech and Slovak banking institutions for ABO format specification
 - Contributors and maintainers
+
+[[SpojeNetIT s.r.o.](spojentetitlogo.svg?raw=true)](https://spojenet.cz)
