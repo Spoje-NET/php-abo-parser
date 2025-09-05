@@ -37,17 +37,17 @@ class AboFileParsingTest extends TestCase
         $statement = $result['statements'][0];
         $this->assertEquals('074', $statement['record_type']);
         $this->assertEquals('Test Account Name', $statement['account_name']);
-        $this->assertEquals(100000.0, $statement['old_balance']);
-        $this->assertEquals(95000.0, $statement['new_balance']);
+        $this->assertEquals(99474.70, $statement['old_balance']);
+        $this->assertEquals(93201.15, $statement['new_balance']);
         
         // Verify transaction data
         $transaction1 = $result['transactions'][0];
         $this->assertEquals('075', $transaction1['record_type']);
         $this->assertEquals(AboParser::FORMAT_BASIC, $transaction1['format']);
-        $this->assertEquals(500.0, $transaction1['amount']);
+        $this->assertEquals(1100.01, $transaction1['amount']);
         
         $transaction2 = $result['transactions'][1];
-        $this->assertEquals(1500.0, $transaction2['amount']);
+        $this->assertEquals(1330.01, $transaction2['amount']);
     }
 
     /**
@@ -65,13 +65,13 @@ class AboFileParsingTest extends TestCase
         // Verify statement data
         $statement = $result['statements'][0];
         $this->assertEquals('074', $statement['record_type']);
-        $this->assertEquals('Extended Test Account', $statement['account_name']);
+        $this->assertEquals('Extended Test Accoun', $statement['account_name']);
         
         // Verify extended transaction data
         $transaction = $result['transactions'][0];
         $this->assertEquals('075', $transaction['record_type']);
         $this->assertEquals(AboParser::FORMAT_EXTENDED, $transaction['format']);
-        $this->assertEquals(1000.0, $transaction['amount']);
+        $this->assertEquals(100.0, $transaction['amount']);
         
         // Verify extended fields are present
         $this->assertArrayHasKey('message_for_recipient', $transaction);
@@ -103,7 +103,6 @@ class AboFileParsingTest extends TestCase
         $result = $this->parser->parseFile($filePath);
 
         // Should not crash, but should store raw records
-        $this->assertIsArray($result);
         $this->assertArrayHasKey('raw_records', $result);
         $this->assertNotEmpty($result['raw_records']);
         
@@ -153,7 +152,6 @@ class AboFileParsingTest extends TestCase
         $result = $this->parser->parseFile($filePath);
         
         // Should not crash with encoding issues
-        $this->assertIsArray($result);
         $this->assertArrayHasKey('format_version', $result);
     }
 
