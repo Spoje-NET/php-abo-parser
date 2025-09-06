@@ -9,3 +9,7 @@ composer.phar
 /nbproject/
 /tests/*.abo*
 /.phpunit.cache/
+/debian/.debhelper/
+/debian/php-spojenet-abo-parser/
+/debian/php-spojenet-abo-parser.substvars
+/debian/debhelper-build-stamp

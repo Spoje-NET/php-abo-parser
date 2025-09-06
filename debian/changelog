@@ -1,0 +1,10 @@
+php-spojenet-abo-parser (0.1.0-1) unstable; urgency=low
+
+  * Initial release
+  * Czechoslovak ABO format parsing library for PHP
+  * Includes AboParser class with support for 074 and 075 records
+  * Command-line tools for ABO to JSON conversion
+  * Full PSR-4 autoloading support
+  * Proper character encoding for Czech/Slovak text
+
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Fri, 06 Sep 2024 17:49:49 +0200

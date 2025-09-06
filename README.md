@@ -10,7 +10,6 @@ A PHP library for parsing Czechoslovak ABO (Account Bank Operations) format file
 [![Downloads](https://img.shields.io/packagist/dt/spojenet/abo-parser.svg)](https://packagist.org/packages/spojenet/abo-parser)
 [![Last Commit](https://img.shields.io/github/last-commit/Spoje-NET/php-abo-parser.svg)](https://github.com/Spoje-NET/php-abo-parser/commits/main)
 
-
 ## Features
 
 - **Dual Format Support**: Automatically detects and parses both basic and extended ABO formats
@@ -204,7 +203,7 @@ The parser returns an array with three main sections:
     'format' => 'extended',
     'message_for_recipient' => 'Payment description',
     'message_for_recipient_2' => 'Additional info line 2',
-    'message_for_recipient_3' => 'Additional info line 3', 
+    'message_for_recipient_3' => 'Additional info line 3',
     'message_for_recipient_4' => 'Additional info line 4',
     'message_for_sender' => 'Internal note',
     'debited_date' => '2025-08-21',
@@ -323,4 +322,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Czech and Slovak banking institutions for ABO format specification
 - Contributors and maintainers
 
-<a href="https://spojenet.cz"><img src="spojentetitlogo.svg" alt="SpojeNetIT s.r.o." height="40"></a>
+<a href="https://spojenet.cz"><img width="200" src="spojentetitlogo.svg" alt="SpojeNetIT s.r.o." height="40"></a>

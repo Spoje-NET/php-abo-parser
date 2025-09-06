@@ -1,0 +1,34 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE = 1
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -rf vendor/ composer.lock
+
+override_dh_auto_build:
+	# Nothing to build for pure PHP library
+
+override_dh_auto_test:
+	# Skip tests during package build to avoid dev dependencies
+
+override_dh_install:
+	# Install PHP library files
+	install -d debian/php-spojenet-abo-parser/usr/share/php/SpojeNet/AboParser/
+	cp -a src/AboParser/* debian/php-spojenet-abo-parser/usr/share/php/SpojeNet/AboParser/
+	
+	# Install composer.json
+	install -d debian/php-spojenet-abo-parser/usr/share/php/php-spojenet-abo-parser/
+	cp composer.json debian/php-spojenet-abo-parser/usr/share/php/php-spojenet-abo-parser/
+	
+	# Install examples
+	install -d debian/php-spojenet-abo-parser/usr/share/doc/php-spojenet-abo-parser/examples/
+	cp -a Example/* debian/php-spojenet-abo-parser/usr/share/doc/php-spojenet-abo-parser/examples/
+	chmod +x debian/php-spojenet-abo-parser/usr/share/doc/php-spojenet-abo-parser/examples/*.php
+	
+	# Install documentation
+	cp -a docs/* debian/php-spojenet-abo-parser/usr/share/doc/php-spojenet-abo-parser/
+	cp README.md debian/php-spojenet-abo-parser/usr/share/doc/php-spojenet-abo-parser/

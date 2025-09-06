@@ -1,0 +1,35 @@
+Source: php-spojenet-abo-parser
+Section: php
+Priority: optional
+Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
+Build-Depends:
+ debhelper-compat (= 13),
+ pkg-php-tools,
+ php-cli,
+ composer,
+Standards-Version: 4.7.0
+Homepage: https://github.com/spojenet/abo-parser
+Rules-Requires-Root: no
+Vcs-Git: https://github.com/spojenet/abo-parser.git
+Vcs-Browser: https://github.com/spojenet/abo-parser
+
+Package: php-spojenet-abo-parser
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+ php-common,
+ php-iconv | php-cli,
+Recommends:
+ php-cli,
+Description: Czechoslovak ABO format parsing library for PHP
+ This library provides a parser for Czechoslovak ABO (Account Bank Output)
+ format files, which are commonly used for bank statement processing in
+ Czech Republic and Slovakia.
+ .
+ The library includes:
+  - AboParser class for parsing ABO files
+  - Support for 074 and 075 record types
+  - Proper character encoding handling for Czech/Slovak text
+  - Command-line tools for ABO to JSON conversion
+  - Full PSR-4 autoloading support
