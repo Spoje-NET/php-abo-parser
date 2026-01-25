@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.spoje_net.php_spojenet_abo_parser</id>
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+  <name>php-spojenet-abo-parser</name>
+  <summary>Czechoslovak ABO format parsing library for PHP</summary>
+  <description>
+    <p>
+      This library provides a parser for Czechoslovak ABO (Account Bank Output) format files, which are commonly used for bank statement processing in Czech Republic and Slovakia. The library includes: - AboParser class for parsing ABO files - Support for 074 and 075 record types - Proper character encoding handling for Czech/Slovak text - Command-line tools for ABO to JSON conversion - Full PSR-4 autoloading support
+    </p>
+  </description>
+  <categories>
+    <category>Utility</category>
+  </categories>
+  <url type="homepage">https://github.com/Spoje-NET/php-abo-parser</url>
+  <url type="bugtracker">https://github.com/Spoje-NET/php-abo-parser/issues</url>
+  <developer id="io.github.spoje_net">
+    <name>Spoje.Net</name>
+  </developer>
+  <content_rating type="oars-1.1"/>
+</component>
