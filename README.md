@@ -1,4 +1,5 @@
 # PHP ABO Parser
+![Packaging: deb](https://img.shields.io/badge/packaging-.deb-red?logo=debian&logoColor=white)
 
 A PHP library for parsing Czechoslovak ABO (Account Bank Operations) format files commonly used by Czech and Slovak banks for financial data exchange.
 
