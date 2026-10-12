@@ -6,7 +6,6 @@ Build-Depends:
  debhelper-compat (= 13),
  pkg-php-tools,
  php-cli,
- composer,
 Standards-Version: 4.7.0
 Homepage: https://github.com/spojenet/abo-parser
 Rules-Requires-Root: no

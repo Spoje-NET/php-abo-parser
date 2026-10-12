@@ -20,6 +20,11 @@ override_dh_install:
 	install -d debian/php-spojenet-abo-parser/usr/share/php/SpojeNet/AboParser/
 	cp -a src/AboParser/* debian/php-spojenet-abo-parser/usr/share/php/SpojeNet/AboParser/
 	
+	# Install static Debian autoloader and register it for pkg-php-tools
+	install -D -m 0644 debian/autoload.php debian/php-spojenet-abo-parser/usr/share/php/SpojeNet/AboParser/autoload.php
+	install -d debian/php-spojenet-abo-parser/usr/share/pkg-php-tools/autoloaders
+	echo 'spojenet abo-parser SpojeNet/AboParser/autoload.php' > debian/php-spojenet-abo-parser/usr/share/pkg-php-tools/autoloaders/php-spojenet-abo-parser
+
 	# Install composer.json
 	install -d debian/php-spojenet-abo-parser/usr/share/php/php-spojenet-abo-parser/
 	cp composer.json debian/php-spojenet-abo-parser/usr/share/php/php-spojenet-abo-parser/
